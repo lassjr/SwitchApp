@@ -25,9 +25,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _data = "";
 
-  void _onOff(String selectedVersionRaspberry, int raspberryPin) {
+  void _onOff(
+      String selectedVersionRaspberry, int raspberryPin, String action) {
     var url =
-        "http://192.168.247.195:8080/?ver=$selectedVersionRaspberry&pin=$raspberryPin";
+        "http://192.168.247.195:8080/$action/?ver=$selectedVersionRaspberry&pin=$raspberryPin";
     http.get(url).then((response) {
       setState(() {
         _data = response.body;
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 color: Colors.grey[350],
                 onPressed: () {
-                  _onOff(selectedVersionRaspberry, raspberryPin);
+                  _onOff(selectedVersionRaspberry, raspberryPin, "on");
                 },
               ),
             ),
@@ -115,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 color: Colors.grey[350],
                 onPressed: () {
-                  _onOff(selectedVersionRaspberry, raspberryPin);
+                  _onOff(selectedVersionRaspberry, raspberryPin, "off");
                 },
               ),
             ),
