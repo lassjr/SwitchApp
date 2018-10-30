@@ -24,11 +24,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _data = "";
+  final myController = TextEditingController();
+  String ipServer;
 
-  void _onOff(
-      String selectedVersionRaspberry, int raspberryPin, String action) {
+  void _onOff(String selectedVersionRaspberry, int raspberryPin, String action,
+      String ipServer) {
     var url =
-        "http://192.168.247.195:8080/$action/?ver=$selectedVersionRaspberry&pin=$raspberryPin";
+        "http://$ipServer:8080/$action/?ver=$selectedVersionRaspberry&pin=$raspberryPin";
     http.get(url).then((response) {
       setState(() {
         _data = response.body;
@@ -42,7 +44,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<DropdownMenuItem<String>> listDrop = [];
   List<DropdownMenuItem<int>> listPin = [];
-  List<int> drop = [1, 4, 5, 6, 3, 2, 0, 7];
+  List<int> drop = [
+    2,
+    3,
+    4,
+    7,
+    8,
+    9,
+    10,
+    11,
+    14,
+    15,
+    17,
+    18,
+    22,
+    23,
+    24,
+    25,
+    27
+  ];
   String selectedVersionRaspberry = null;
   int raspberryPin = null;
 
@@ -74,6 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
+  void onChanged(String value) {
+    setState(() {
+      ipServer = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     loadData();
@@ -93,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 50.0),
+              margin: const EdgeInsets.only(top: 25.0),
               child: RaisedButton(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
@@ -102,7 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 color: Colors.grey[350],
                 onPressed: () {
-                  _onOff(selectedVersionRaspberry, raspberryPin, "on");
+                  _onOff(
+                      selectedVersionRaspberry, raspberryPin, "on", ipServer);
                 },
               ),
             ),
@@ -116,15 +143,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 color: Colors.grey[350],
                 onPressed: () {
-                  _onOff(selectedVersionRaspberry, raspberryPin, "off");
+                  _onOff(
+                      selectedVersionRaspberry, raspberryPin, "off", ipServer);
                 },
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 50.0),
+              margin: const EdgeInsets.only(top: 35.0),
               child: Text(
-                "Select Raspberry Version and pin",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                "Select Raspberry Version pin and ip address",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
               ),
             ),
             Container(
@@ -151,6 +179,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       raspberryPin = value;
                       setState(() {});
                     }),
+              ),
+            ),
+            Container(
+              margin:
+                  const EdgeInsets.only(top: 20.0, left: 115.0, right: 115.0),
+              child: Center(
+                child: TextField(onChanged: (String value) {
+                  onChanged(value);
+                }),
               ),
             ),
           ],
