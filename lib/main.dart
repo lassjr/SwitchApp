@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Raspberry',
-      theme: new ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      theme: new ThemeData.dark(),
       home: MyHomePage(),
     );
   }
@@ -105,14 +103,60 @@ class _MyHomePageState extends State<MyHomePage> {
     loadData();
     loadPin();
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Raspberry"),
-      ),
+      resizeToAvoidBottomPadding: false,
+      appBar: new AppBar(title: new Text("Raspberry")),
       body: Center(
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 25.0),
+              margin: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                "Select Raspberry Version pin and ip address",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              child: Center(
+                child: DropdownButton(
+                    //style: TextStyle(color: Colors.yellowAccent[700]),
+                    items: listDrop,
+                    value: selectedVersionRaspberry,
+                    hint: new Text('Select version'),
+                    onChanged: (value) {
+                      selectedVersionRaspberry = value;
+                      setState(() {});
+                    }),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              child: Center(
+                child: DropdownButton(
+                    //style: TextStyle(color: Colors.yellowAccent[700]),
+                    items: listPin,
+                    value: raspberryPin,
+                    hint: new Text('Select pin'),
+                    onChanged: (value) {
+                      raspberryPin = value;
+                      setState(() {});
+                    }),
+              ),
+            ),
+            Container(
+              margin:
+                  const EdgeInsets.only(top: 10.0, left: 115.0, right: 115.0),
+              child: Center(
+                child: TextField(
+                  onChanged: (String value) {
+                    onChanged(value);
+                  },
+                  decoration: InputDecoration(hintText: 'Insert IP Address'),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 40.0),
               child: Text(
                 "Open Light",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -126,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "On",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                color: Colors.grey[350],
+                color: Colors.green,
                 onPressed: () {
                   _onOff(
                       selectedVersionRaspberry, raspberryPin, "on", ipServer);
@@ -141,53 +185,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Off",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-                color: Colors.grey[350],
+                color: Colors.red,
                 onPressed: () {
                   _onOff(
                       selectedVersionRaspberry, raspberryPin, "off", ipServer);
                 },
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 35.0),
-              child: Text(
-                "Select Raspberry Version pin and ip address",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 25.0),
-              child: Center(
-                child: DropdownButton(
-                    items: listDrop,
-                    value: selectedVersionRaspberry,
-                    hint: new Text('Select version'),
-                    onChanged: (value) {
-                      selectedVersionRaspberry = value;
-                      setState(() {});
-                    }),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 25.0),
-              child: Center(
-                child: DropdownButton(
-                    items: listPin,
-                    value: raspberryPin,
-                    hint: new Text('Select pin'),
-                    onChanged: (value) {
-                      raspberryPin = value;
-                      setState(() {});
-                    }),
-              ),
-            ),
-            Container(
-              margin:
-                  const EdgeInsets.only(top: 20.0, left: 115.0, right: 115.0),
-              child: Center(
-                child: TextField(onChanged: (String value) {
-                  onChanged(value);
-                }),
               ),
             ),
           ],
