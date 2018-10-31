@@ -1,4 +1,4 @@
-package com.example.layoutapp;
+package com.example.switchapp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

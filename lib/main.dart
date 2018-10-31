@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Raspberry',
+      title: 'SwitchApp',
       theme: new ThemeData.dark(),
       home: MyHomePage(),
     );
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
     loadPin();
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: new AppBar(title: new Text("Raspberry")),
+      appBar: new AppBar(title: new Text("SwitchApp")),
       body: Center(
         child: Column(
           children: [
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               margin:
-                  const EdgeInsets.only(top: 10.0, left: 115.0, right: 115.0),
+                  const EdgeInsets.only(top: 20.0, left: 115.0, right: 115.0),
               child: Center(
                 child: TextField(
                   onChanged: (String value) {
